@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapReduce with Web Workers</title>
+</head>
+<body>
+    <script>
+// main.js
+const mapWorkerScript = `
+  onmessage = function(e) {
+    const data = e.data;
+    const mapped = data.map(num => num * 2); // Example transformation: doubling the numbers
+    postMessage(mapped);
+  }
+`;
+
+const reduceWorkerScript = `
+  onmessage = function(e) {
+    const data = e.data;
+    const reduced = data.reduce((acc, val) => acc + val, 0); // Summing the numbers
+    postMessage(reduced);
+  }
+`;
+
+// Create map worker
+const mapBlob = new Blob([mapWorkerScript], { type: 'application/javascript' });
+const mapWorker = new Worker(URL.createObjectURL(mapBlob));
+
+// Create reduce worker
+const reduceBlob = new Blob([reduceWorkerScript], { type: 'application/javascript' });
+const reduceWorker = new Worker(URL.createObjectURL(reduceBlob));
+
+const numbers = [1, 2, 3, 4, 5];
+
+// Map phase
+mapWorker.onmessage = function(e) {
+  const mappedData = e.data;
+
+  // Reduce phase
+  reduceWorker.onmessage = function(e) {
+    const reducedResult = e.data;
+    console.log('Mapped Data:', mappedData);
+    console.log('Reduced Result:', reducedResult);
+    reduceWorker.terminate();
+  };
+
+  reduceWorker.postMessage(mappedData);
+};
+
+mapWorker.postMessage(numbers);
+  </script>
+</body>
+</html>
