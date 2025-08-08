@@ -11,3 +11,4 @@
   console.log(result);
 })();
 ```
+- https://ithelp.ithome.com.tw/m/articles/10194296
