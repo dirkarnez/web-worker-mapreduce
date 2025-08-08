@@ -1,10 +1,13 @@
 ```javascript
-Promise.all([
-  new Promise(res => setTimeout(() => res(1), 2000)), 
-  new Promise(res => setTimeout(() => res(2), 2000)), 
-  new Promise(res => setTimeout(() => res(3), 2000))
-])
-.then((values) => {
-  console.log(values.reduce((p, c) => p + c, 0));
-});
+(async () => {
+  const result = await Promise
+  .all([1,2,3]
+    .map(e => new Promise(res => setTimeout(() => res(e), 2000)))
+  )
+  .then((values) => (
+    values.reduce((p, c) => p + c, 0)
+  ));
+
+  console.log(result);
+})();
 ```
