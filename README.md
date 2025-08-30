@@ -12,6 +12,7 @@
 })();
 ```
 - https://ithelp.ithome.com.tw/m/articles/10194296
+- https://mdn.github.io/dom-examples/web-workers/simple-shared-worker/
 - https://mdn.github.io/dom-examples/web-workers/simple-web-worker/main.js
   - ```javascript
     const first = document.querySelector("#number1");
