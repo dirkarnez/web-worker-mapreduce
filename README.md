@@ -15,6 +15,7 @@
 - https://mdn.github.io/dom-examples/web-workers/simple-shared-worker/
 - [GoogleChromeLabs/comlink: Comlink makes WebWorkers enjoyable.](https://github.com/GoogleChromeLabs/comlink)
 - https://mdn.github.io/dom-examples/web-workers/simple-web-worker/main.js
+- https://mathjs.org/examples/browser/webworkers/index.html
   - ```javascript
     const first = document.querySelector("#number1");
     const second = document.querySelector("#number2");
